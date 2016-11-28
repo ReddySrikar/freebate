@@ -1,8 +1,4 @@
 <div class="container">
-
-  <div>
-    <acme-navbar creation-date="main.creationDate"></acme-navbar>
-  </div>
     <div class="panel panel-default">
     <div class="panel-heading"> Post a Rant</div>
     <div class="panel-body">
@@ -18,6 +14,7 @@
     <div class="panel-body">
         <ul class="list-group" >
             <li class="list-group-item" ng-repeat="msg in main.messages">
+            {{msg.type}}
             {{msg.msg}}
             {{msg.stmt}}
             </li>
