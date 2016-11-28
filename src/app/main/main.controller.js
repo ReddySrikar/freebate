@@ -11,10 +11,10 @@ export class MainController {
             //console.log(packet);
             vm.messages = packet.data;
         });
-    };
+    }
 
     postMessage(){
         //console.log("The POST form value!!");
         this.$http.post("http://localhost:5000/api/message", {stmt:this.message});
-    };
+    }
 }
