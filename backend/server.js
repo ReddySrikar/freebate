@@ -5,8 +5,8 @@ var bodyParser = require("body-parser");
 //var mongo = require("mongodb").MongoClient;
 var mongoose = require("mongoose");
 
-var schema = new mongoose.Schema({stmt: String});
-var Message = mongoose.model('Message', schema);
+var Message = require("./dbmodels/Message");
+var User = require("./dbmodels/User");
 
 mongoose.Promise = require('bluebird');
 //var datab;
@@ -29,6 +29,13 @@ app.post("/api/message", function(req,res){
     var message = new Message(req.body);
     message.save();
     //datab.collection("messages").insertOne(req.body);
+});
+
+app.post("/auth/register",function(req, res){
+    console.log(req.body);
+
+    var user = new User(req.body);
+    user.save();
 });
 
 function GetMessages(req,res)
