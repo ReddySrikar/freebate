@@ -8,6 +8,7 @@ var mongoose = require("mongoose");
 
 var auth = require("./controllers/auth");
 var message = require("./controllers/message");
+var jwt = require("jwt-simple");
 
 mongoose.Promise = require('bluebird');
 //var datab;
@@ -21,6 +22,14 @@ app.use(function(req,res,next){
     //next() function ensures that it (i.e. this custom middleware chain) does not freeze the middleware chain
     next();
 });
+
+function checkAuthenticated(req,res,next){
+    if(!req.header('Authorization')){
+        return res.status(401).send({message: 'Please make sure your request has an authorization header!'});
+    }
+
+    var token = req.header('Authorization').split('')[1];
+}
 
 app.get("/api/message", message.getMessages);
 
