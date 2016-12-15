@@ -14,7 +14,9 @@ export class MainController {
     }
 
     postMessage(){
+        var msgvar = this;
         //console.log("The POST form value!!");
         this.$http.post("http://localhost:5000/api/message", {stmt:this.message});
+        msgvar.messages.push({stmt:this.message});
     }
 }

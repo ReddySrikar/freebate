@@ -5,8 +5,9 @@ var bodyParser = require("body-parser");
 //var mongo = require("mongodb").MongoClient;
 var mongoose = require("mongoose");
 
-var Message = require("./dbmodels/Message");
-var User = require("./dbmodels/User");
+
+var auth = require("./controllers/auth");
+var message = require("./controllers/message");
 
 mongoose.Promise = require('bluebird');
 //var datab;
@@ -21,29 +22,13 @@ app.use(function(req,res,next){
     next();
 });
 
-app.get("/api/message", GetMessages);
+app.get("/api/message", message.getMessages);
 
-app.post("/api/message", function(req,res){
-    //console.log(req.body);
-    res.status(200);  
-    var message = new Message(req.body);
-    message.save();
-    //datab.collection("messages").insertOne(req.body);
-});
+app.post("/api/message", message.postMessages);
 
-app.post("/auth/register",function(req, res){
-    console.log(req.body);
+app.post("/auth/register", auth.register);
 
-    var user = new User(req.body);
-    user.save();
-});
 
-function GetMessages(req,res)
-{
-    Message.find({}).exec(function(err, result){
-        res.send(result);
-    })
-}
 
 mongoose.connect("mongodb://localhost:27017/sample", function(err,db){
     if(!err){
